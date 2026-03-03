@@ -1,94 +1,135 @@
-import java.util.Scanner;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Assignment</title>
 
-class Student {
+    <style>
 
-    private String name;
-    private int rollNo;
-    private double marks;
-
-    private static int totalStudents = 0;
-
-    // Constructor with strict validation
-    public Student(String name, int rollNo, double marks) {
-
-        if (marks < 0 || marks > 100) {
-            throw new IllegalArgumentException("Marks must be between 0 and 100.");
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 40px;
         }
 
-        this.name = name;
-        this.rollNo = rollNo;
-        this.marks = marks;
-
-        totalStudents++;
-    }
-
-    public String calculateGrade() {
-        if (marks >= 90) return "A";
-        else if (marks >= 75) return "B";
-        else if (marks >= 60) return "C";
-        else if (marks >= 40) return "D";
-        else return "F";
-    }
-
-    public void displayDetails() {
-        System.out.println("Name      : " + name);
-        System.out.println("Roll No   : " + rollNo);
-        System.out.println("Marks     : " + marks);
-        System.out.println("Grade     : " + calculateGrade());
-        System.out.println("----------------------------");
-    }
-
-    public static int getTotalStudents() {
-        return totalStudents;
-    }
-}
-
-public class Main {
-
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        try {
-
-            System.out.print("Enter number of students: ");
-            int n = sc.nextInt();
-            sc.nextLine();
-
-            Student[] students = new Student[n];
-
-            for (int i = 0; i < n; i++) {
-
-                System.out.println("\nEnter details for Student " + (i + 1));
-
-                System.out.print("Name: ");
-                String name = sc.nextLine();
-
-                System.out.print("Roll No: ");
-                int roll = sc.nextInt();
-
-                System.out.print("Marks: ");
-                double marks = sc.nextDouble();
-                sc.nextLine();
-
-                // If invalid marks → exception thrown here
-                students[i] = new Student(name, roll, marks);
-            }
-
-            System.out.println("\n===== Student Details =====");
-
-            for (Student s : students) {
-                s.displayDetails();
-            }
-
-            System.out.println("Total Students Created: " + Student.getTotalStudents());
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-            System.out.println("Program terminated due to invalid input.");
-            System.exit(1);
+        h2 {
+            text-align: center;
         }
 
-        sc.close();
-    }
-}
+        /* ===== FORM STYLING ===== */
+
+        form {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* ===== TABLE STYLING ===== */
+
+        table {
+            width: 80%;
+            margin: 40px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Student Registration Form</h2>
+
+    <form>
+        <label>Name:</label>
+        <input type="text" placeholder="Enter your name">
+
+        <label>Email:</label>
+        <input type="email" placeholder="Enter your email">
+
+        <label>Course:</label>
+        <select>
+            <option>B.Tech</option>
+            <option>BCA</option>
+            <option>B.Sc</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Student Details Table</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+        </tr>
+
+        <tr>
+            <td>Rahul</td>
+            <td>rahul@gmail.com</td>
+            <td>B.Tech</td>
+        </tr>
+
+        <tr>
+            <td>Anjali</td>
+            <td>anjali@gmail.com</td>
+            <td>BCA</td>
+        </tr>
+
+        <tr>
+            <td>Vikram</td>
+            <td>vikram@gmail.com</td>
+            <td>B.Sc</td>
+        </tr>
+    </table>
+
+</body>
+</html>

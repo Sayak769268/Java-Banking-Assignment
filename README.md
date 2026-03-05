@@ -268,3 +268,77 @@ INSERT INTO loan_details(sale_id,bank_name,loan_amount,interest_rate) VALUES
 (4,'ICICI',1200000,8.2),
 (6,'SBI',2000000,7.9),
 (8,'Axis',1000000,8.1);
+
+
+
+
+
+SELECT
+    s.sale_id                                               AS Sale_ID,
+    s.sale_date                                             AS Sale_Date,
+    YEAR(s.sale_date)                                       AS Year,
+    MONTHNAME(s.sale_date)                                  AS Month,
+    CONCAT('Q', QUARTER(s.sale_date))                       AS Quarter,
+    r.region_name                                           AS Region,
+    r.regional_manager                                      AS Regional_Manager,
+    b.branch_name                                           AS Branch,
+    b.city                                                  AS Branch_City,
+    b.state                                                 AS Branch_State,
+    b.branch_size                                           AS Branch_Size,
+    b.opening_year                                          AS Branch_Est_Year,
+    e.employee_name                                         AS Salesperson,
+    e.designation                                           AS Designation,
+    e.experience_years                                      AS Experience_Yrs,
+    c.customer_name                                         AS Customer_Name,
+    c.gender                                                AS Gender,
+    c.age                                                   AS Customer_Age,
+    c.city                                                  AS Customer_City,
+    cm.model_name                                           AS Car_Model,
+    cm.category                                             AS Category,
+    cv.variant_name                                         AS Variant,
+    cv.fuel_type                                            AS Fuel_Type,
+    cv.transmission                                         AS Transmission,
+    cc.color_name                                           AS Car_Color,
+    FORMAT(s.total_amount, 2)                               AS Invoice_Amount_INR,
+    FORMAT(s.discount, 2)                                   AS Discount_INR,
+    FORMAT(s.tax, 2)                                        AS Tax_INR,
+    FORMAT(s.final_amount, 2)                               AS Final_Amount_INR,
+    ROUND(s.discount * 100.0 / s.total_amount, 2)           AS Discount_Pct,
+    ROUND(s.tax * 100.0 / s.total_amount, 2)                AS Tax_Rate_Pct,
+    p.payment_method                                        AS Payment_Mode,
+    p.payment_status                                        AS Payment_Status,
+    IFNULL(ld.bank_name, 'N/A')                             AS Loan_Bank,
+    IFNULL(FORMAT(ld.loan_amount, 2), 'N/A')                AS Loan_Amount_INR,
+    IFNULL(CAST(ld.interest_rate AS CHAR), 'N/A')           AS Interest_Rate_Pct,
+    IFNULL(i.stock_quantity, 0)                             AS Current_Stock_At_Branch,
+    CASE
+        WHEN s.final_amount >= 2000000 THEN 'Platinum'
+        WHEN s.final_amount >= 1500000 THEN 'Gold'
+        WHEN s.final_amount >= 1000000 THEN 'Silver'
+        ELSE 'Standard'
+    END                                                     AS Sale_Tier,
+    CASE
+        WHEN s.discount * 100.0 / s.total_amount >= 4 THEN 'High Discount'
+        WHEN s.discount * 100.0 / s.total_amount >= 2 THEN 'Medium Discount'
+        ELSE 'Low Discount'
+    END                                                     AS Discount_Category,
+    CASE
+        WHEN c.age < 30 THEN 'Youth'
+        WHEN c.age < 45 THEN 'Mid-Age'
+        ELSE 'Senior'
+    END                                                     AS Customer_Age_Group
+
+FROM sales s
+LEFT JOIN branches      b  ON s.branch_id   = b.branch_id
+LEFT JOIN regions       r  ON b.region_id   = r.region_id
+LEFT JOIN employees     e  ON s.employee_id = e.employee_id
+LEFT JOIN customers     c  ON s.customer_id = c.customer_id
+LEFT JOIN sales_details sd ON s.sale_id     = sd.sale_id
+LEFT JOIN car_variants  cv ON sd.variant_id = cv.variant_id
+LEFT JOIN car_models    cm ON cv.model_id   = cm.model_id
+LEFT JOIN car_colors    cc ON sd.color_id   = cc.color_id
+LEFT JOIN payments       p ON s.sale_id     = p.sale_id
+LEFT JOIN loan_details  ld ON s.sale_id     = ld.sale_id
+LEFT JOIN inventory      i ON b.branch_id   = i.branch_id
+                           AND cv.variant_id = i.variant_id
+ORDER BY s.sale_date, r.region_name, b.branch_name;

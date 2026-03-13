@@ -344,3 +344,39 @@ LEFT JOIN loan_details  ld ON s.sale_id     = ld.sale_id
 LEFT JOIN inventory      i ON b.branch_id   = i.branch_id
                            AND cv.variant_id = i.variant_id
 ORDER BY s.sale_date, r.region_name, b.branch_name;
+
+
+
+INSERT INTO emp VALUES
+(1,'KING',5000,'2020-01-10',10,NULL),
+(2,'SMITH',3000,'2021-03-15',20,200),
+(3,'ALLEN',2500,'2022-06-20',10,NULL),
+(4,'JONES',4000,'2019-09-12',30,500),
+(5,'SCOTT',3500,'2023-02-01',20,NULL);
+
+SELECT ename,
+ROUND(TIMESTAMPDIFF(MONTH, hiredate, CURDATE())) AS MONTHS_WORKED
+FROM emp
+ORDER BY MONTHS_WORKED;
+
+SELECT CONCAT(
+ename,
+' earns ',
+sal,
+' monthly but wants ',
+sal*3
+) AS Dream_Salaries
+FROM emp;
+
+SELECT ename,
+LPAD(sal, 15, '$') AS SALARY
+FROM emp;
+
+SELECT ename,
+hiredate,
+DATE_FORMAT(
+DATE_ADD(hiredate, INTERVAL 6 MONTH),
+'%W, %D %M %Y'
+) AS REVIEW
+FROM emp;
+

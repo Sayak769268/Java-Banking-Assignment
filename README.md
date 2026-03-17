@@ -380,3 +380,7 @@ DATE_ADD(hiredate, INTERVAL 6 MONTH),
 ) AS REVIEW
 FROM emp;
 
+Void (react ),zod ,
+Kia front page any 1 page data dynamic structure the code well 
+Every section of page should be components and every part shall have data conditionally rendered and use symantic html use for loops ok 
+Contact form with validation (zod )

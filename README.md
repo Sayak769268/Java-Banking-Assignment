@@ -17,3 +17,5 @@ Design a Payment system using oops
 Kia front page any 1 page data dynamic structure the code well 
 Every section of page should be components and every part shall have data conditionally rendered and use symantic html use for loops ok 
 Contact form with validation (zod )
+
+hey i have been given a task : make Kia front page 1 page , the data should be dynamic structure the code well Every section of page should be components and every part shall have data conditionally rendered and use symantic html ,use for loops ok also make Contact form with validation (zod ) this is my task now u have to tell me step by step on how to too do it from scrach lets go step b y step only not all at once also this should be in react and typescript (tsx) make sure to do it step by step ask me questions if u need instructions dont make it complex keep the structure of the cvode and folders very simple

@@ -22,3 +22,6 @@ hey i have been given a task : make Kia front page 1 page , the data should be d
 
 
 fetch data from rick and morty api websiteand create a rick and morty website will all character cards on it along with various details in card which are fetched from api. On clicking card it lists episode in which that character has appeared. rickandmortyapi.com
+
+class NotificationService{
+Emailservice emailservice = new Emailservice();}
